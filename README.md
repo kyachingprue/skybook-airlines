@@ -73,6 +73,18 @@ BREVO_API_KEY=...
 BREVO_SENDER_EMAIL=...
 ```
 
+For Google sign-in, create a **Web application** OAuth client in Google Cloud Console.
+Add the origin from `NEXTAUTH_URL` as an authorized JavaScript origin, and add this exact
+authorized redirect URI:
+
+```text
+<NEXTAUTH_URL>/api/auth/callback/google
+```
+
+For local development, this is `http://localhost:3000/api/auth/callback/google`.
+In production, use the deployed site's exact HTTPS origin. Keep the Google client secret
+and `.env` out of Git.
+
 ### 3. Database
 
 ```bash
