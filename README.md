@@ -14,7 +14,10 @@ Modern, responsive, production-ready airplane ticket booking website built with 
 - Dynamic role-based dashboards
 - **Redux Toolkit** for booking state
 - **TanStack Query (React Query)** for server state
+- **GSAP + ScrollTrigger** for reduced-motion-aware scroll reveals
 - **Prisma ORM** + **PostgreSQL (Neon)**
+- **Stripe Checkout** with server-verified payment confirmation and seat reservations
+- **react-hot-toast** payment feedback
 - Booking confirmation / cancellation emails via **Brevo API**
 - Flight search, booking flow, seat selection ready architecture
 - Recharts analytics on Admin dashboard
@@ -29,6 +32,8 @@ src/
 │   │   ├── bookings/
 │   │   ├── flights/
 │   │   └── email/
+│   ├── services
+│   ├── contact
 │   ├── login / register
 │   ├── flights
 │   ├── booking
@@ -71,7 +76,27 @@ GOOGLE_CLIENT_ID=...
 GOOGLE_CLIENT_SECRET=...
 BREVO_API_KEY=...
 BREVO_SENDER_EMAIL=...
+IMGBB_API_KEY=...
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
 ```
+
+`IMGBB_API_KEY` is optional and is only needed to enable profile photo uploads
+from the traveler dashboard. The key is used by the server and should not use a
+`NEXT_PUBLIC_` prefix.
+
+Set `NEXT_PUBLIC_CONTACT_EMAIL` to your support inbox for the Contact page. The
+form prepares an email in the visitor's default email app; it does not send
+messages directly from the website.
+
+Stripe Checkout uses the server-only `STRIPE_SECRET_KEY`. Configure a webhook
+signing secret in `STRIPE_WEBHOOK_SECRET` for the
+`/api/webhooks/stripe` endpoint. During local development, forward Stripe test
+events with
+`stripe listen --events checkout.session.completed,checkout.session.async_payment_succeeded,checkout.session.expired --forward-to localhost:3000/api/webhooks/stripe`.
+Run `npm run db:push` and `npm run db:generate` against the intended database
+before starting checkout. Seed demo flights with `npm run db:seed` if the
+database does not yet contain flight inventory.
 
 For Google sign-in, create a **Web application** OAuth client in Google Cloud Console.
 Add the origin from `NEXTAUTH_URL` as an authorized JavaScript origin, and add this exact
@@ -106,7 +131,7 @@ Open [http://localhost:3000](http://localhost:3000)
 
 | Role    | Path                  | Capabilities                          |
 |---------|-----------------------|---------------------------------------|
-| USER    | `/dashboard/user`     | Own bookings, cancel, profile         |
+| USER    | `/dashboard/user`     | Overview, own bookings, profile       |
 | AIRLINE | `/dashboard/airline`  | Manage flights, schedules, seats      |
 | ADMIN   | `/dashboard/admin`    | Full platform analytics & management  |
 
@@ -126,9 +151,11 @@ Toggle light / dark mode from the navbar. Uses `next-themes` with system prefere
 - @radix-ui/* (Shadcn foundation)
 - lucide-react, react-icons
 - next-auth, @auth/prisma-adapter
+- stripe, react-hot-toast
 - @prisma/client, prisma
 - @reduxjs/toolkit, react-redux
 - @tanstack/react-query
+- gsap
 - next-themes, framer-motion, recharts
 - zod, react-hook-form, bcryptjs, jsonwebtoken, nodemailer
 

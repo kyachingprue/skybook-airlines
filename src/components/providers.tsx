@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Provider as ReduxProvider } from "react-redux";
 import { store } from "@/store";
 import { useState } from "react";
+import { Toaster } from "react-hot-toast";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -25,6 +26,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <ReduxProvider store={store}>
         <QueryClientProvider client={queryClient}>
           {children}
+          <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </ReduxProvider>

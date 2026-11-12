@@ -27,8 +27,8 @@ export default function AirlineDashboard() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-10">
-      <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div className="container mx-auto px-4 py-10" data-reveal>
+      <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4" data-enter>
         <div>
           <h1 className="text-3xl font-bold">Airline Dashboard</h1>
           <p className="text-muted-foreground mt-1">Manage your flights & schedules</p>
@@ -38,13 +38,13 @@ export default function AirlineDashboard() {
         </Button>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-3 mb-10">
+      <div className="grid gap-4 sm:grid-cols-3 mb-10" data-reveal-stagger>
         {[
           { label: "Active Flights", value: "24", icon: Plane },
           { label: "Passengers (30d)", value: "1,842", icon: Users },
           { label: "Upcoming Departures", value: "8", icon: Calendar },
         ].map((stat) => (
-          <Card key={stat.label}>
+          <Card key={stat.label} data-reveal-item>
             <CardContent className="pt-6 flex items-center gap-4">
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-600">
                 <stat.icon className="h-6 w-6" />
@@ -58,7 +58,7 @@ export default function AirlineDashboard() {
         ))}
       </div>
 
-      <Card>
+      <Card data-reveal>
         <CardHeader>
           <CardTitle>Recent Flights</CardTitle>
         </CardHeader>

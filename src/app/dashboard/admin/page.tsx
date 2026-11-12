@@ -43,20 +43,20 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-10">
-      <div className="mb-8">
+    <div className="container mx-auto px-4 py-10" data-reveal>
+      <div className="mb-8" data-enter>
         <h1 className="text-3xl font-bold">Admin Dashboard</h1>
         <p className="text-muted-foreground mt-1">Platform overview & management</p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-10">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-10" data-reveal-stagger>
         {[
           { label: "Total Users", value: "12,480", icon: Users, change: "+12%" },
           { label: "Active Flights", value: "86", icon: Plane, change: "+3" },
           { label: "Bookings (30d)", value: "3,241", icon: Ticket, change: "+18%" },
           { label: "Revenue (30d)", value: "$284k", icon: DollarSign, change: "+9%" },
         ].map((stat) => (
-          <Card key={stat.label}>
+          <Card key={stat.label} data-reveal-item>
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -75,8 +75,8 @@ export default function AdminDashboard() {
         ))}
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        <Card>
+      <div className="grid gap-6 lg:grid-cols-2" data-reveal-stagger>
+        <Card data-reveal-item>
           <CardHeader>
             <CardTitle>Weekly Revenue</CardTitle>
           </CardHeader>
@@ -95,7 +95,7 @@ export default function AdminDashboard() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card data-reveal-item>
           <CardHeader>
             <CardTitle>Booking Trend</CardTitle>
           </CardHeader>

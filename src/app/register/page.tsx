@@ -31,7 +31,10 @@ export default function RegisterPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Registration failed");
       // Auto login after register
-      await signIn("credentials", { email, password, redirect: false });
+      const result = await signIn("credentials", { email, password, redirect: false });
+      if (!result || result.error) {
+        throw new Error(result?.error || "Your account was created, but automatic sign-in failed. Please sign in.");
+      }
       router.push("/dashboard/user");
       router.refresh();
     } catch (err: any) {
@@ -43,7 +46,7 @@ export default function RegisterPage() {
 
   return (
     <div className="container mx-auto flex min-h-[calc(100vh-8rem)] items-center justify-center px-4 py-12">
-      <Card className="w-full max-w-md border-border/50 shadow-xl">
+      <Card data-enter className="w-full max-w-md border-border/50 shadow-xl">
         <CardHeader className="text-center space-y-2">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-500 to-indigo-600 text-white">
             <Plane className="h-6 w-6" />

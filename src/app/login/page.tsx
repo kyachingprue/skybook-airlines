@@ -34,12 +34,24 @@ function getAuthErrorFromUrl() {
   return new URLSearchParams(window.location.search).get("error");
 }
 
+function getCallbackUrlFromUrl() {
+  const callbackUrl = new URLSearchParams(window.location.search).get("callbackUrl");
+  return callbackUrl?.startsWith("/") && !callbackUrl.startsWith("//")
+    ? callbackUrl
+    : "/dashboard/user";
+}
+
 export default function LoginPage() {
   const router = useRouter();
   const authError = useSyncExternalStore(
     subscribeToLocation,
     getAuthErrorFromUrl,
     () => null
+  );
+  const callbackUrl = useSyncExternalStore(
+    subscribeToLocation,
+    getCallbackUrlFromUrl,
+    () => "/dashboard/user"
   );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -57,10 +69,10 @@ export default function LoginPage() {
         password,
         redirect: false,
       });
-      if (res?.error) {
-        setError(res.error);
+      if (!res || res.error) {
+        setError(res?.error || "Unable to sign in right now. Please try again.");
       } else {
-        router.push("/dashboard/user");
+        router.push(callbackUrl);
         router.refresh();
       }
     } catch {
@@ -74,7 +86,7 @@ export default function LoginPage() {
     setLoading(true);
     setError("");
     try {
-      await signIn("google", { callbackUrl: "/dashboard/user" });
+      await signIn("google", { callbackUrl });
     } catch {
       setError("Unable to start Google sign-in. Please try again.");
       setLoading(false);
@@ -83,7 +95,7 @@ export default function LoginPage() {
 
   return (
     <div className="container mx-auto flex min-h-[calc(100vh-8rem)] items-center justify-center px-4 py-12">
-      <Card className="w-full max-w-md border-border/50 shadow-xl">
+      <Card data-enter className="w-full max-w-md border-border/50 shadow-xl">
         <CardHeader className="text-center space-y-2">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-500 to-indigo-600 text-white">
             <Plane className="h-6 w-6" />

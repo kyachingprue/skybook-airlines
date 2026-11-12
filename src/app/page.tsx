@@ -11,9 +11,9 @@ import {
   CalendarDays,
   Check,
   ChevronRight,
-  Clock3,
+  CircleCheck,
+  Compass,
   Globe2,
-  Headphones,
   Luggage,
   MapPin,
   Plane,
@@ -55,21 +55,24 @@ const destinations = [
   },
 ];
 
-const benefits = [
+const steps = [
   {
-    icon: BadgeCheck,
-    title: "Clear, upfront fares",
-    description: "See your fare before you book, with no surprise checkout fees.",
+    number: "01",
+    icon: Search,
+    title: "Find your route",
+    description: "Search available flights by city, airport, and departure date.",
   },
   {
-    icon: ShieldCheck,
-    title: "A safer way to book",
-    description: "Your account and booking details are protected at every step.",
+    number: "02",
+    icon: TicketCheck,
+    title: "Choose your flight",
+    description: "Compare routes and fares, then enter your passenger details.",
   },
   {
-    icon: Headphones,
-    title: "Help when you need it",
-    description: "Find your trip and get support from one convenient place.",
+    number: "03",
+    icon: Plane,
+    title: "Travel with confidence",
+    description: "Pay securely and keep your itinerary together in My Bookings.",
   },
 ];
 
@@ -101,152 +104,210 @@ export default function HomePage() {
 
   return (
     <div className="overflow-hidden">
-      <section className="relative isolate min-h-[690px] overflow-hidden bg-slate-950 text-white">
+      <section className="relative isolate min-h-[610px] overflow-hidden bg-slate-950 text-white sm:min-h-[660px]">
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-20 bg-cover bg-center"
+          className="absolute inset-0 -z-30 bg-cover bg-[center_55%]"
           style={{
             backgroundImage:
               "url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=2200&q=90')",
           }}
         />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-slate-950 via-slate-950/75 to-slate-950/20" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/20" />
+        <div className="absolute inset-0 -z-20 bg-gradient-to-r from-slate-950 via-slate-950/85 to-slate-950/30" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-slate-950/75 via-transparent to-slate-950/20" />
+        <div aria-hidden="true" className="absolute -right-20 top-24 -z-10 h-72 w-72 rounded-full bg-sky-400/20 blur-[100px]" />
 
-        <div className="container mx-auto px-4 pb-28 pt-20 md:pb-36 md:pt-28">
-          <div className="max-w-3xl animate-fade-up">
+        <div className="container mx-auto grid min-h-[610px] items-center gap-8 px-4 pb-20 pt-16 sm:min-h-[660px] sm:pb-24 md:grid-cols-[1.1fr_0.9fr] md:pt-20">
+          <div className="max-w-3xl" data-enter>
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm text-sky-100 backdrop-blur-md">
               <Sparkles className="h-4 w-4 text-amber-300" />
-              A better way to get there
+              A clearer way to travel
             </div>
-            <h1 className="max-w-3xl text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl">
-              The world is
-              <br />
+            <h1 className="max-w-3xl text-[2.9rem] font-semibold leading-[1.02] tracking-[-0.045em] sm:text-6xl lg:text-7xl">
+              There&apos;s a whole
+              <br className="hidden sm:block" /> world{" "}
               <span className="bg-gradient-to-r from-sky-300 via-cyan-200 to-white bg-clip-text text-transparent">
-                closer than ever.
+                waiting.
               </span>
             </h1>
-            <p className="mt-6 max-w-xl text-base leading-7 text-slate-200 sm:text-lg">
-              Find a flight that fits your plans. Compare popular routes, book
-              with confidence, and keep every trip in one place.
+            <p className="mt-6 max-w-xl text-base leading-7 text-slate-200 sm:text-lg sm:leading-8">
+              Find a flight that fits your plans. Compare available routes, book
+              securely, and keep every trip in one place.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-slate-200">
-              <span className="inline-flex items-center gap-2">
-                <Check className="h-4 w-4 text-emerald-300" /> Easy flight search
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Button size="lg" className="h-12 bg-white px-6 text-slate-950 hover:bg-sky-50" asChild>
+                <Link href="/flights">
+                  Explore flights <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+              <Link
+                href="#how-it-works"
+                className="inline-flex h-12 items-center gap-2 rounded-xl px-4 text-sm font-medium text-white transition hover:bg-white/10"
+              >
+                How SkyBook works <ChevronRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <div className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-200">
+              {["Secure checkout", "Clear fares", "Trips in one place"].map((item) => (
+                <span key={item} className="inline-flex items-center gap-2">
+                  <Check className="h-4 w-4 text-emerald-300" /> {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="relative hidden min-h-[360px] items-center justify-center md:flex" data-enter>
+            <div className="absolute right-8 top-8 h-64 w-64 rounded-full border border-white/15" />
+            <div className="absolute right-16 top-16 h-48 w-48 rounded-full border border-white/10" />
+            <div className="relative w-full max-w-sm rounded-[2rem] border border-white/20 bg-slate-950/35 p-7 shadow-2xl backdrop-blur-xl">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-sm text-sky-100">Make room for</p>
+                  <p className="mt-1 text-2xl font-semibold">somewhere new.</p>
+                </div>
+                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-sky-300 text-slate-950">
+                  <Compass className="h-5 w-5" />
+                </span>
+              </div>
+              <div className="my-7 flex items-center gap-3">
+                <span className="h-2.5 w-2.5 rounded-full bg-sky-300 ring-4 ring-sky-300/15" />
+                <span className="h-px flex-1 border-t border-dashed border-white/40" />
+                <Plane className="h-5 w-5 rotate-90 text-sky-200" />
+                <span className="h-px flex-1 border-t border-dashed border-white/40" />
+                <span className="h-2.5 w-2.5 rounded-full bg-white ring-4 ring-white/15" />
+              </div>
+              <div className="grid grid-cols-3 gap-3 border-t border-white/15 pt-5">
+                <div>
+                  <p className="text-xs text-slate-300">Search</p>
+                  <p className="mt-1 text-sm font-medium">Your route</p>
+                </div>
+                <div>
+                  <p className="text-xs text-slate-300">Choose</p>
+                  <p className="mt-1 text-sm font-medium">Your flight</p>
+                </div>
+                <div>
+                  <p className="text-xs text-slate-300">Go</p>
+                  <p className="mt-1 text-sm font-medium">Your way</p>
+                </div>
+              </div>
+              <div className="mt-6 flex items-center gap-2 text-xs text-sky-100">
+                <CircleCheck className="h-4 w-4 text-emerald-300" />
+                Every trip, together in one place
+              </div>
+            </div>
+            <div className="absolute -bottom-2 left-0 flex items-center gap-3 rounded-2xl border border-white/15 bg-slate-950/55 px-4 py-3 shadow-xl backdrop-blur-lg">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-400/15 text-emerald-200">
+                <ShieldCheck className="h-5 w-5" />
               </span>
-              <span className="inline-flex items-center gap-2">
-                <Check className="h-4 w-4 text-emerald-300" /> Secure booking
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <Check className="h-4 w-4 text-emerald-300" /> Simple trip management
+              <span>
+                <span className="block text-sm font-semibold">Book with confidence</span>
+                <span className="mt-0.5 block text-xs text-slate-300">Secure, clear checkout</span>
               </span>
             </div>
           </div>
         </div>
-
-        <div className="container absolute inset-x-0 bottom-0 mx-auto translate-y-1/2 px-4">
-          <form
-            onSubmit={handleSearch}
-            className="rounded-3xl border border-white/70 bg-background p-4 text-foreground shadow-[0_24px_80px_-24px_rgba(2,8,23,0.55)] sm:p-6"
-          >
-            <div className="mb-4 flex items-center justify-between gap-4">
-              <div>
-                <p className="font-semibold">Find your next flight</p>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  Search the routes available on SkyBook
-                </p>
-              </div>
-              <span className="hidden items-center gap-2 rounded-full bg-sky-500/10 px-3 py-1.5 text-xs font-medium text-sky-700 dark:text-sky-300 sm:inline-flex">
-                <Plane className="h-3.5 w-3.5" /> One way
-              </span>
-            </div>
-            <div className="grid gap-3 md:grid-cols-[1fr_auto_1fr_1fr_auto] md:items-end">
-              <div className="min-w-0">
-                <label htmlFor="flight-from" className="mb-1.5 block text-xs font-medium text-muted-foreground">
-                  FROM
-                </label>
-                <div className="relative">
-                  <MapPin className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-sky-600" />
-                  <Input
-                    id="flight-from"
-                    list="airport-suggestions"
-                    placeholder="City or airport"
-                    value={from}
-                    onChange={(event) => setFrom(event.target.value)}
-                    className="h-12 pl-10"
-                  />
-                </div>
-              </div>
-              <Button
-                type="button"
-                variant="outline"
-                size="icon"
-                aria-label="Swap departure and destination"
-                onClick={swapLocations}
-                className="hidden rounded-full md:inline-flex"
-              >
-                <ArrowDownUp className="h-4 w-4" />
-              </Button>
-              <div className="min-w-0">
-                <label htmlFor="flight-to" className="mb-1.5 block text-xs font-medium text-muted-foreground">
-                  TO
-                </label>
-                <div className="relative">
-                  <Plane className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-indigo-600" />
-                  <Input
-                    id="flight-to"
-                    list="airport-suggestions"
-                    placeholder="Where to?"
-                    value={to}
-                    onChange={(event) => setTo(event.target.value)}
-                    className="h-12 pl-10"
-                  />
-                </div>
-              </div>
-              <div className="min-w-0">
-                <label htmlFor="flight-date" className="mb-1.5 block text-xs font-medium text-muted-foreground">
-                  DEPARTURE
-                </label>
-                <div className="relative">
-                  <CalendarDays className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input
-                    id="flight-date"
-                    type="date"
-                    min={getLocalDate()}
-                    value={date}
-                    onChange={(event) => setDate(event.target.value)}
-                    className="h-12 pl-10"
-                  />
-                </div>
-              </div>
-              <Button type="submit" variant="gradient" size="lg" className="h-12 w-full md:w-auto">
-                <Search className="h-4 w-4" />
-                Search flights
-              </Button>
-            </div>
-            <datalist id="airport-suggestions">
-              <option value="Dhaka" />
-              <option value="Dubai" />
-              <option value="Bangkok" />
-              <option value="Doha" />
-              <option value="DAC" />
-              <option value="DXB" />
-              <option value="BKK" />
-              <option value="DOH" />
-            </datalist>
-          </form>
-        </div>
       </section>
 
-      <section className="container mx-auto px-4 pb-8 pt-44 sm:pt-40">
-        <div className="grid gap-4 rounded-3xl border bg-card p-5 shadow-sm sm:grid-cols-3 sm:p-7">
+      <div className="relative z-10 container mx-auto -mt-14 px-4 sm:-mt-16" data-enter>
+        <form
+          onSubmit={handleSearch}
+          className="rounded-3xl border border-border/70 bg-card p-4 text-card-foreground shadow-[0_28px_90px_-32px_rgba(15,23,42,0.42)] sm:p-6 lg:p-7"
+        >
+          <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p className="text-lg font-semibold">Find your next flight</p>
+              <p className="mt-1 text-sm text-muted-foreground">Where would you like to go?</p>
+            </div>
+            <span className="inline-flex items-center gap-2 rounded-full bg-sky-500/10 px-3 py-1.5 text-xs font-semibold text-sky-700 dark:text-sky-300">
+              <Plane className="h-3.5 w-3.5" /> Flight search
+            </span>
+          </div>
+          <div className="grid gap-3 md:grid-cols-[1fr_auto_1fr_1fr_auto] md:items-end">
+            <div className="min-w-0">
+              <label htmlFor="flight-from" className="mb-1.5 block text-xs font-semibold tracking-wider text-muted-foreground">
+                FROM
+              </label>
+              <div className="relative">
+                <MapPin className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-sky-600" />
+                <Input
+                  id="flight-from"
+                  list="airport-suggestions"
+                  placeholder="City or airport"
+                  value={from}
+                  onChange={(event) => setFrom(event.target.value)}
+                  className="h-12 pl-10"
+                />
+              </div>
+            </div>
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              aria-label="Swap departure and destination"
+              onClick={swapLocations}
+              className="hidden rounded-full md:inline-flex"
+            >
+              <ArrowDownUp className="h-4 w-4" />
+            </Button>
+            <div className="min-w-0">
+              <label htmlFor="flight-to" className="mb-1.5 block text-xs font-semibold tracking-wider text-muted-foreground">
+                TO
+              </label>
+              <div className="relative">
+                <Plane className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-indigo-600" />
+                <Input
+                  id="flight-to"
+                  list="airport-suggestions"
+                  placeholder="Where to?"
+                  value={to}
+                  onChange={(event) => setTo(event.target.value)}
+                  className="h-12 pl-10"
+                />
+              </div>
+            </div>
+            <div className="min-w-0">
+              <label htmlFor="flight-date" className="mb-1.5 block text-xs font-semibold tracking-wider text-muted-foreground">
+                DEPARTURE
+              </label>
+              <div className="relative">
+                <CalendarDays className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  id="flight-date"
+                  type="date"
+                  min={getLocalDate()}
+                  value={date}
+                  onChange={(event) => setDate(event.target.value)}
+                  className="h-12 pl-10"
+                />
+              </div>
+            </div>
+            <Button type="submit" variant="gradient" size="lg" className="h-12 w-full md:w-auto">
+              <Search className="h-4 w-4" /> Search flights
+            </Button>
+          </div>
+          <datalist id="airport-suggestions">
+            <option value="Dhaka" />
+            <option value="Dubai" />
+            <option value="Bangkok" />
+            <option value="Doha" />
+            <option value="DAC" />
+            <option value="DXB" />
+            <option value="BKK" />
+            <option value="DOH" />
+          </datalist>
+        </form>
+      </div>
+
+      <section className="container mx-auto px-4 pb-8 pt-12 sm:pt-16" data-reveal>
+        <div className="grid gap-4 rounded-3xl border bg-card p-5 shadow-sm sm:grid-cols-3 sm:p-7" data-reveal-stagger>
           {[
-            { icon: Globe2, title: "Popular destinations", detail: "Explore routes from Dhaka" },
-            { icon: TicketCheck, title: "Easy booking", detail: "A clear, simple checkout" },
-            { icon: Luggage, title: "Trips in one place", detail: "Manage your travel with ease" },
+            { icon: Globe2, title: "Explore new places", detail: "Browse routes from one simple search" },
+            { icon: BadgeCheck, title: "Book with clarity", detail: "See the fare before you check out" },
+            { icon: Luggage, title: "Keep plans together", detail: "Find your trips in your account" },
           ].map((item, index) => (
             <div
               key={item.title}
+              data-reveal-item
               className={`flex items-center gap-4 ${index > 0 ? "sm:border-l sm:pl-6" : ""}`}
             >
               <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-sky-500/10 text-sky-600 dark:text-sky-300">
@@ -261,33 +322,31 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="container mx-auto px-4 py-16 md:py-20">
+      <section className="container mx-auto px-4 py-14 md:py-20" data-reveal>
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-sky-600 dark:text-sky-400">
-              Make it a getaway
+              A little inspiration
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-              Popular routes from Dhaka
+              Where could you go next?
             </h2>
             <p className="mt-3 max-w-xl text-muted-foreground">
-              A few ideas for where to go next. Choose a destination to see
-              matching flights.
+              Explore popular destinations and see which flights are available for your dates.
             </p>
           </div>
           <Button variant="outline" asChild className="w-fit">
-            <Link href="/flights">
-              Explore all flights <ArrowRight className="h-4 w-4" />
-            </Link>
+            <Link href="/flights">Explore all flights <ArrowRight className="h-4 w-4" /></Link>
           </Button>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-3" data-reveal-stagger>
           {destinations.map((destination) => (
             <Link
               key={destination.airport}
+              data-reveal-item
               href={`/flights?${new URLSearchParams({ from: "Dhaka", to: destination.city })}`}
-              className="group relative isolate min-h-[340px] overflow-hidden rounded-3xl bg-slate-900 text-white shadow-lg transition duration-500 hover:-translate-y-1 hover:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-4"
+              className="group relative isolate min-h-[330px] overflow-hidden rounded-3xl bg-slate-900 text-white shadow-lg transition duration-500 hover:-translate-y-1 hover:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-4"
               aria-label={`View flights from Dhaka to ${destination.city}`}
             >
               <div
@@ -306,7 +365,7 @@ export default function HomePage() {
                   <div>
                     <h3 className="text-3xl font-semibold">{destination.city}</h3>
                     <p className="mt-2 text-sm text-slate-200">
-                      Fares from <span className="font-semibold text-white">{destination.price}</span>
+                      Example fare <span className="font-semibold text-white">{destination.price}</span>
                     </p>
                   </div>
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-slate-900 transition duration-300 group-hover:rotate-45 group-hover:bg-sky-300">
@@ -318,72 +377,66 @@ export default function HomePage() {
           ))}
         </div>
         <p className="mt-4 text-xs text-muted-foreground">
-          Displayed fares are examples from the currently listed flights and may
-          change.
+          Example fares are for inspiration; current prices and availability appear in flight search.
         </p>
       </section>
 
-      <section className="bg-muted/40 py-16 md:py-20">
+      <section id="how-it-works" className="scroll-mt-20 bg-muted/40 py-16 md:py-20" data-reveal>
         <div className="container mx-auto px-4">
           <div className="mx-auto mb-10 max-w-2xl text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-sky-600 dark:text-sky-400">
-              Travel, made simpler
+              Simple from takeoff
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-              More than a ticket
+              Three steps to your next trip
             </h2>
             <p className="mt-3 text-muted-foreground">
-              The essentials for a smoother journey, from your first search to
-              your next adventure.
+              A straightforward booking flow, with the important details kept together.
             </p>
           </div>
-          <div className="grid gap-5 md:grid-cols-3">
-            {benefits.map((benefit) => (
+          <div className="grid gap-5 md:grid-cols-3" data-reveal-stagger>
+            {steps.map((step) => (
               <article
-                key={benefit.title}
-                className="group rounded-3xl border bg-card p-6 transition duration-300 hover:-translate-y-1 hover:border-sky-500/40 hover:shadow-xl"
+                key={step.number}
+                data-reveal-item
+                className="relative rounded-3xl border bg-card p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg sm:p-7"
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-500/15 to-indigo-500/15 text-sky-700 transition duration-300 group-hover:scale-110 group-hover:from-sky-500 group-hover:to-indigo-600 group-hover:text-white dark:text-sky-300">
-                  <benefit.icon className="h-5 w-5" />
-                </span>
-                <h3 className="mt-5 text-lg font-semibold">{benefit.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                  {benefit.description}
-                </p>
+                <div className="flex items-center justify-between">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-500/15 to-indigo-500/15 text-sky-700 dark:text-sky-300">
+                    <step.icon className="h-5 w-5" />
+                  </span>
+                  <span className="font-mono text-sm font-semibold text-muted-foreground">{step.number}</span>
+                </div>
+                <h3 className="mt-5 text-lg font-semibold">{step.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{step.description}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="container mx-auto px-4 py-16 md:py-20">
-        <div className="grid items-center gap-10 rounded-[2rem] bg-gradient-to-br from-sky-600 via-blue-700 to-indigo-800 p-8 text-white shadow-xl md:grid-cols-[1fr_auto] md:p-12">
-          <div>
-            <p className="inline-flex items-center gap-2 text-sm font-medium text-sky-100">
-              <Clock3 className="h-4 w-4" /> Your next trip starts here
-            </p>
-            <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">
-              Pick a place. We&apos;ll help you get there.
-            </h2>
-            <p className="mt-3 max-w-xl leading-7 text-sky-100">
-              Browse available flights or create an account to keep your travel
-              plans together.
-            </p>
+      <section className="container mx-auto px-4 py-16 md:py-20" data-reveal>
+        <div className="relative isolate overflow-hidden rounded-[2rem] bg-gradient-to-br from-sky-600 via-blue-700 to-indigo-800 p-8 text-white shadow-xl md:p-12">
+          <div aria-hidden="true" className="absolute -right-12 -top-20 -z-10 h-72 w-72 rounded-full border-[40px] border-white/10" />
+          <div className="grid items-center gap-8 md:grid-cols-[1fr_auto]">
+            <div>
+              <p className="inline-flex items-center gap-2 text-sm font-medium text-sky-100">
+                <ShieldCheck className="h-4 w-4" /> Ready when you are
+              </p>
+              <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">
+                Your next destination is just a search away.
+              </h2>
+              <p className="mt-3 max-w-xl leading-7 text-sky-100">
+                Explore available routes, book securely, and manage your itinerary in SkyBook.
+              </p>
+            </div>
+            <Button size="lg" className="w-fit bg-white text-sky-800 hover:bg-sky-50" asChild>
+              <Link href="/flights">Find a flight <ChevronRight className="h-4 w-4" /></Link>
+            </Button>
           </div>
-          <div className="flex flex-col gap-3 sm:flex-row md:flex-col">
-            <Button size="lg" className="bg-white text-sky-800 hover:bg-sky-50" asChild>
-              <Link href="/flights">
-                Browse flights <ChevronRight className="h-4 w-4" />
-              </Link>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white/40 bg-white/5 text-white hover:bg-white/15 hover:text-white"
-              asChild
-            >
-              <Link href="/register">Create account</Link>
-            </Button>
+          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 border-t border-white/20 pt-5 text-sm text-sky-100">
+            <span className="inline-flex items-center gap-2"><Check className="h-4 w-4" /> Secure Stripe checkout</span>
+            <span className="inline-flex items-center gap-2"><Check className="h-4 w-4" /> Booking details in your account</span>
           </div>
         </div>
       </section>

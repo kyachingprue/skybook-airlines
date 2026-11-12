@@ -177,6 +177,7 @@ model Booking {
   flightId        String
   flight          Flight        @relation(fields: [flightId], references: [id])
   status          BookingStatus @default(PENDING)
+  stripeSessionId String?       @unique
   totalAmount     Decimal       @db.Decimal(10, 2)
   passengersCount Int
   contactEmail    String

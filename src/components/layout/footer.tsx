@@ -28,26 +28,26 @@ export function Footer() {
             <h4 className="font-semibold mb-4">Company</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li><Link href="/about" className="hover:text-foreground">About Us</Link></li>
-              <li><Link href="#" className="hover:text-foreground">Careers</Link></li>
-              <li><Link href="#" className="hover:text-foreground">Press</Link></li>
+              <li><Link href="/services" className="hover:text-foreground">Our Services</Link></li>
+              <li><Link href="/flights" className="hover:text-foreground">Search Flights</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-semibold mb-4">Support</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link href="#" className="hover:text-foreground">Help Center</Link></li>
-              <li><Link href="#" className="hover:text-foreground">Contact Us</Link></li>
-              <li><Link href="#" className="hover:text-foreground">Refund Policy</Link></li>
+              <li><Link href="/contact" className="hover:text-foreground">Contact Us</Link></li>
+              <li><Link href="/dashboard/user/bookings" className="hover:text-foreground">My Bookings</Link></li>
+              <li><Link href="/services" className="hover:text-foreground">Booking Support</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-semibold mb-4">Legal</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link href="#" className="hover:text-foreground">Privacy Policy</Link></li>
-              <li><Link href="#" className="hover:text-foreground">Terms of Service</Link></li>
-              <li><Link href="#" className="hover:text-foreground">Cookie Policy</Link></li>
+              <li><Link href="/contact" className="hover:text-foreground">Privacy questions</Link></li>
+              <li><Link href="/contact" className="hover:text-foreground">Terms questions</Link></li>
+              <li><Link href="/contact" className="hover:text-foreground">Contact support</Link></li>
             </ul>
           </div>
         </div>
